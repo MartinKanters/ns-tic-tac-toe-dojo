@@ -1,6 +1,5 @@
-package nl.ns.martin.kanters
+package nl.ns.martin.kanters.commandline
 
-import picocli.CommandLine
 import picocli.CommandLine.Command
 import picocli.CommandLine.Parameters
 
