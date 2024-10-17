@@ -11,7 +11,7 @@ class GameTest {
         val game = Game()
 
         assertThat(game).isNotNull
-        assertThat(game.getState()).isEqualTo(NOT_STARTED)
+        assertThat(game.state).isEqualTo(NOT_STARTED)
     }
 
     @Test
@@ -24,7 +24,20 @@ class GameTest {
         game.addPlayer(playerO)
         game.start()
 
-        assertThat(game.getState()).isEqualTo(PLAYING)
+        assertThat(game.state).isEqualTo(PLAYING)
+    }
+
+    @Test
+    fun `game which is started cannot be started again`() {
+
+        val game = Game()
+        game.addPlayer(Player('X'))
+        game.addPlayer(Player('O'))
+        game.start()
+
+        assertThatThrownBy { game.start() }
+            .isInstanceOf(IllegalStateException::class.java)
+            .hasMessage("Game is already started")
     }
 
     @Test
