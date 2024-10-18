@@ -10,7 +10,7 @@ data class Player(val symbol: Char) {
                 }
         }
 
-        val choice = Random.nextInt(0, openPositions.size - 1)
+        val choice = if (openPositions.size == 1) 0 else Random.nextInt(0, openPositions.size - 1)
 
         return openPositions[choice]
     }

@@ -86,11 +86,11 @@ class GameTest {
         game.addPlayer(playerO)
         game.start()
 
-        val turn = game.playTurn()
+        val turnResult = game.playTurn()
 
-        assertThat(turn).isNotNull
-        assertThat(turn.player).isIn(playerX, playerO)
-        val (x, y) = turn.position
+        assertThat(turnResult).isNotNull
+        assertThat(turnResult.turn.player).isIn(playerX, playerO)
+        val (x, y) = turnResult.turn.position
         assertThat(x).isBetween(0, 2)
         assertThat(y).isBetween(0, 2)
     }
@@ -104,7 +104,7 @@ class GameTest {
         game.addPlayer(playerO)
         game.start()
 
-        val turns = List(4){}.map { game.playTurn() }
+        val turns = List(4){}.map { game.playTurn().turn }
 
         assertThat(turns.groupingBy { it.player }.eachCount()).isEqualTo(
             mapOf(
@@ -123,7 +123,7 @@ class GameTest {
         game.addPlayer(playerO)
         game.start()
         // This cannot result in a win/draw yet
-        List(4){}.map { game.playTurn() }
+        List(4){}.map { game.playTurn().turn }
 
         assertThatThrownBy { List(6){}.map { game.playTurn() } }
             .isInstanceOf(IllegalStateException::class.java)

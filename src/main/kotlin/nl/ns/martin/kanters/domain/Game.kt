@@ -26,7 +26,7 @@ class Game {
         matches += Match()
     }
 
-    fun playTurn(): Turn {
+    fun playTurn(): TurnResult {
         val match = matches.lastOrNull()
         check(state == PLAYING && match != null) { "Game is not ongoing" }
         val player = players[turnIndex++ % players.size]
@@ -39,7 +39,7 @@ class Game {
             state = FINISHED
         }
 
-        return Turn(player, x to y)
+        return TurnResult(Turn(player, x to y), positions.toList())
     }
 
     /**
