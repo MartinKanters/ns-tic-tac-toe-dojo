@@ -23,4 +23,8 @@ class Game {
 
         state = PLAYING
     }
+
+    fun playTurn(): Turn {
+        TODO()
+    }
 }

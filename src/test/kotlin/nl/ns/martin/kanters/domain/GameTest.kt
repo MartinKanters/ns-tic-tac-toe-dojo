@@ -76,4 +76,57 @@ class GameTest {
             .isInstanceOf(IllegalStateException::class.java)
             .hasMessage("Player symbol 'X' is already taken")
     }
+
+    @Test
+    fun `a turn can be played`() {
+        val playerX = Player('X')
+        val playerO = Player('O')
+        val game = Game()
+        game.addPlayer(playerX)
+        game.addPlayer(playerO)
+        game.start()
+
+        val turn = game.playTurn()
+
+        assertThat(turn).isNotNull
+        assertThat(turn.player).isIn(playerX, playerO)
+        val (x, y) = turn.position
+        assertThat(x).isBetween(0, 2)
+        assertThat(y).isBetween(0, 2)
+    }
+
+    @Test
+    fun `turns are done evenly by both players`() {
+        val playerX = Player('X')
+        val playerO = Player('O')
+        val game = Game()
+        game.addPlayer(playerX)
+        game.addPlayer(playerO)
+        game.start()
+
+        val turns = listOf(4).map { game.playTurn() }
+
+        assertThat(turns.groupingBy { it.player }.eachCount()).isEqualTo(
+            mapOf(
+                playerX to 2,
+                playerO to 2,
+            )
+        )
+    }
+
+    @Test
+    fun `turns cannot be done when the game is done`() {
+        val playerX = Player('X')
+        val playerO = Player('O')
+        val game = Game()
+        game.addPlayer(playerX)
+        game.addPlayer(playerO)
+        game.start()
+        // This cannot result in a win/draw yet
+        listOf(4).map { game.playTurn() }
+
+        assertThatThrownBy { listOf(6).map { game.playTurn() } }
+            .isInstanceOf(IllegalStateException::class.java)
+            .hasMessage("Game is completed, cannot do a turn anymore")
+    }
 }
