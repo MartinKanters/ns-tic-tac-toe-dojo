@@ -1,3 +1,3 @@
 package nl.ns.martin.kanters.domain
 
-data class Position(val claimedBy: Player? = null)
+data class Position(var claimedBy: Player? = null)
