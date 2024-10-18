@@ -100,6 +100,25 @@ class MatchTest {
         assertThat(streak).isNull()
     }
 
+    @Test
+    fun `a completed streak with the winner can be found`() {
+        val boardStringRepresentation = """
+            x|o|.
+            o|x|o
+            .|o|x"""
+        val match = Match()
+        val board = parseBoardStringRepresentation(boardStringRepresentation)
+        playStepsOnMatch(board, match)
+
+        val streak = match.getStreak()
+
+        assertThat(streak).isNotNull()
+        assertThat(streak!!.player.symbol).isEqualTo('x')
+        assertThat(streak.streak).isEqualTo(listOf(
+            0 to 0, 1 to 1, 2 to 2
+        ))
+    }
+
     private fun parseBoardStringRepresentation(matchStringRepresentation: String) =
         matchStringRepresentation.split(System.lineSeparator())
             .filterNot { it.isEmpty() }
