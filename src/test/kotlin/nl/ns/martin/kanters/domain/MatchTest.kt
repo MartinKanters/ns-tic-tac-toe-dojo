@@ -102,9 +102,10 @@ class MatchTest {
 
     private fun parseBoardStringRepresentation(matchStringRepresentation: String) =
         matchStringRepresentation.split(System.lineSeparator())
+            .filterNot { it.isEmpty() }
             .map { line ->
                 line.split('|').map { position ->
-                    position[0].takeIf { it != '.' }?.let { Player(it) }
+                    position.trim()[0].takeIf { it != '.' }?.let { Player(it) }
                 }
             }
 
