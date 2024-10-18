@@ -25,6 +25,8 @@ class Match {
         }
             .firstOrNull()
 
+    fun isFinished() =
+        getStreak() != null || positions.flatten().all { it.claimedBy != null }
 
     companion object {
         private val possibleStreaks = listOf(

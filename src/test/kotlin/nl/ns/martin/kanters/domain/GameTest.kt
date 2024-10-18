@@ -104,7 +104,7 @@ class GameTest {
         game.addPlayer(playerO)
         game.start()
 
-        val turns = listOf(4).map { game.playTurn() }
+        val turns = List(4){}.map { game.playTurn() }
 
         assertThat(turns.groupingBy { it.player }.eachCount()).isEqualTo(
             mapOf(
@@ -123,10 +123,12 @@ class GameTest {
         game.addPlayer(playerO)
         game.start()
         // This cannot result in a win/draw yet
-        listOf(4).map { game.playTurn() }
+        List(4){}.map { game.playTurn() }
 
-        assertThatThrownBy { listOf(6).map { game.playTurn() } }
+        assertThatThrownBy { List(6){}.map { game.playTurn() } }
             .isInstanceOf(IllegalStateException::class.java)
-            .hasMessage("Game is completed, cannot do a turn anymore")
+            .hasMessage("Game is not ongoing")
+
+        assertThat(game.state).isEqualTo(FINISHED)
     }
 }
