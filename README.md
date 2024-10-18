@@ -1,5 +1,10 @@
 # tic-tac-toe-dojo
 
+This project is made as part of a course I'm taking at NS. 
+We've had two hours to create a tic-tac-toe game following a TDD approach. 
+
+---
+
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
 If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
@@ -58,18 +63,17 @@ If you want to learn more about building native executables, please consult <htt
 - Picocli ([guide](https://quarkus.io/guides/picocli)): Develop command line applications with Picocli
 - Kotlin ([guide](https://quarkus.io/guides/kotlin)): Write your services in Kotlin
 
-## Provided Code
+## Next steps
 
-### Picocli Example
+Functional:
+- Create different strategies that players would use to play turns
+- Make it possible to play with more than 2 players (use cmdline flags to configure)
+- Make the game board size configurable (use cmdline flags to configure)
+- Let one Player be playable by the user
+- Change the commandline text to show the last turn (and winning streak) with a different color
+- Add a new UI
 
-Hello and goodbye are civilization fundamentals. Let's not forget it with this example picocli application by changing the <code>command</code> and <code>parameters</code>.
-
-[Related guide section...](https://quarkus.io/guides/picocli#command-line-application-with-multiple-commands)
-
-Also for picocli applications the dev mode is supported. When running dev mode, the picocli application is executed and on press of the Enter key, is restarted.
-
-As picocli applications will often require arguments to be passed on the commandline, this is also possible in dev mode via:
-
-```shell script
-./mvnw compile quarkus:dev -Dquarkus.args='Quarky'
-```
+Technical:
+- Add some more tests, it's not fully covered, currently
+- Make the algorithm smarter to detect streaks
+- Let 'Game' emit events to make the different layers loosely coupled
